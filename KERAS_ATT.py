@@ -9,14 +9,20 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.models import model_from_json
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import numpy as np
 
 
 # obtain the original files (login/api credentials needed) from https://www.kaggle.com/c/fake-news/data
 df_1 = pd.read_csv('train.csv')
 df_1 = df_1.dropna()
 
+
+# #df = df[df['label'].notna()]
+# #df_1.to_csv("cleaned_f-news.csv", index=False)
+=======
 #df = df[df['label'].notna()]
 #df_1.to_csv("cleaned_f-news.csv", index=False)
+>>>>>>> 68fb353ce88bc3f5b0a7fd5a5f3e717b8a14cff8
     
 
 tokenizer = Tokenizer(num_words=50000, oov_token='<UNK>')
@@ -68,10 +74,12 @@ model.summary()
 # # Train the model
 history = model.fit(x_train, y_train, batch_size=batch_size, epochs=number_of_epochs, verbose=verbosity_mode, validation_split=validation_split)
 
-# # Test the model after training
+# # Test
 results = model.evaluate(x_test, y_test, verbose=False)
 print(f'Results - Loss: {results[0]} - Accuracy: {100*results[1]}%')
 
+
+# save model files (json and h5)
 model_json = model.to_json()
 with open("model.json", "w") as json_file:
     json_file.write(model_json)
@@ -79,14 +87,29 @@ with open("model.json", "w") as json_file:
 model.save_weights("model.h5")
 print("Saving.....")
 
+
+# load model from json
 json_file = open('model.json', 'r')
-loaded_model_json = json_file.read()
+saved_model_json = json_file.read()
 json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-# load weights
-loaded_model.load_weights("model.h5")
+saved_model = model_from_json(saved_model_json)
+# load weights from h5 file
+saved_model.load_weights("model.h5")
 print("Loaded")
 
-loaded_model.compile(loss=loss_function, optimizer=optimizer, metrics=additional_metrics)
-score = loaded_model.evaluate(X, y, verbose=0)
-print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1]*100))
+saved_model.compile(loss=loss_function, optimizer=optimizer, metrics=additional_metrics)
+score = saved_model.evaluate(X, y, verbose=0)
+print("%s: %.2f%%" % (saved_model.metrics_names[1], score[1]*100))
+
+new_text = np.array(['Wow Trump has really gone off the deepend this time and very few people will be surprised by that'])
+new_text = tokenizer.texts_to_sequences(new_text)
+new_text = pad_sequences(new_text, maxlen=maxlen)
+# make a prediction
+pred = saved_model.predict(new_text)
+
+if pred >= 0.5:
+    print(f'This text is biased news with {pred[0]} certainty')
+else:
+    print(f'This text is balanced news with {pred[0]} certainty')
+
+# print(pred)
