@@ -8,24 +8,12 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
-# df_1 = pd.read_csv('DEFAM_SET.csv', encoding='utf-8')
-# print(len(df_1))
-# df_2 = pd.read_csv('NEUT_SET.csv', encoding='utf-8')
-# def_data = df_1[:25000]
-# neut_data = df_2[:25000]
-# comb_frames = [def_data, neut_data]
-# df = pd.concat(comb_frames)
-# df = df.sample(frac=1).reset_index(drop=True)
-
-df_1 = pd.read_csv('fn_train.csv')
-df_2 = pd.read_csv('fn_test.csv')
+import os
 
 
 def data_clean(df):
     df = df.drop(columns=['id', 'title', 'author'])
     df = df.loc[(df["text"].notnull()) & df["label"].notnull()]
-
     return df
 #print(data_clean(df_1).head)
 
