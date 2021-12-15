@@ -9,9 +9,9 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+# download train.csv file from (login/api credentials needed) from https://www.kaggle.com/c/fake-news/data
 
-
-df_1 = pd.read_csv('or_train.csv')
+df_1 = pd.read_csv('train.csv')
 #print(len(df_1))
 df_1 = df_1.dropna()
 #print(len(df_1))
