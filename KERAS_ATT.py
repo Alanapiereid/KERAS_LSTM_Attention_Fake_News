@@ -14,16 +14,7 @@ import numpy as np
 
 # obtain the original file (login/api credentials needed) from https://www.kaggle.com/c/fake-news/data
 df_1 = pd.read_csv('train.csv')
-df_1 = df_1.dropna()
-
-
-# #df = df[df['label'].notna()]
-# #df_1.to_csv("cleaned_f-news.csv", index=False)
-=======
-#df = df[df['label'].notna()]
-#df_1.to_csv("cleaned_f-news.csv", index=False)
->>>>>>> 68fb353ce88bc3f5b0a7fd5a5f3e717b8a14cff8
-    
+df_1 = df_1.dropna()    
 
 # Model params
 additional_metrics = ['accuracy']
