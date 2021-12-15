@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 df_1 = pd.read_csv('train.csv')
 df_1 = df_1.dropna()
 
-#df = df[df['EPS'].notna()]
+#df = df[df['label'].notna()]
 #df_1.to_csv("cleaned_f-news.csv", index=False)
     
 
