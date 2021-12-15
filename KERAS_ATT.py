@@ -14,8 +14,7 @@ import numpy as np
 
 # obtain the original file (login/api credentials needed) from https://www.kaggle.com/c/fake-news/data
 df_1 = pd.read_csv('train.csv')
-df_1 = df_1.dropna()
-    
+df_1 = df_1.dropna()    
 
 # Model params
 additional_metrics = ['accuracy']
