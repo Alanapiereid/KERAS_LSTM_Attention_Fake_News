@@ -1,10 +1,17 @@
 # KERAS_LSTM_Attention_Fake_News
 Fake News detection with Keras model using Kaggle Fake News dataset
 
-Streamlit UI available here:
-____________________________________________________________________________________________________________________________________________________________
+# TO RUN Streamlit app:
+
+pip install -r requirements.txt
+
+# TO Train+Test model:
+
+Downnload train.csv from (authentication required) Kaggle:
+https://www.kaggle.com/c/fake-news/data?select=train.csv
+
+then:
+python KERAS_ATT.py
 
 
 
-
-![image](https://user-images.githubusercontent.com/56002246/146185330-3fa246a1-ff44-401b-aba5-a59154f449a4.png)
