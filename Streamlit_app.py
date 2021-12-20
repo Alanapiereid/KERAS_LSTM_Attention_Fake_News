@@ -13,7 +13,6 @@ class Predict_Bias:
     def __init__(self):
         return None
 
-    @st.cache
     def load_model(self):
         json_file = open('model.json', 'r')
         saved_model_json = json_file.read()
@@ -44,8 +43,10 @@ if __name__ == '__main__':
 
     if trigger:
         text_array = [text]
-        proc_text = Predict_Bias().preprocess(text_array)
-        pred = Predict_Bias().load_model().predict(proc_text)
+        @st.cache
+        model = Predict_Bias()
+        proc_text = model.preprocess(text_array)
+        pred = model.load_model().predict(proc_text)
         if pred >= 0.5:
             st.text(f'This text is biased news with {pred[0][0]} certainty')
         else:
