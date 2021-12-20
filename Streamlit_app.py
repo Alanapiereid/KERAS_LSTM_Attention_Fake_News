@@ -21,7 +21,7 @@ class Predict_Bias:
         saved_model = model_from_json(saved_model_json)
         saved_model.load_weights("model.h5")
         return saved_model
-    @st.cache
+    
     def preprocess(self, text):
         new_text = text
         num_d_words = 50000
