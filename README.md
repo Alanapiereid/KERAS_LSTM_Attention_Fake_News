@@ -7,9 +7,9 @@ pip install -r requirements.txt
 
 streamlit run Streamlit_app.py
 
-# TO Train+Test model:
+# To Train+Test model:
 
-Downnload train.csv from (authentication required) Kaggle:
+Download train.csv from (authentication required) Kaggle:
 https://www.kaggle.com/c/fake-news/data?select=train.csv
 
 then:
