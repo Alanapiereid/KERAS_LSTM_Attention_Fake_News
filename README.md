@@ -5,9 +5,9 @@ Note: This tool works best when entering a full article rather than just a sente
 
 # TO RUN Streamlit app:
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
-streamlit run Streamlit_app.py
+`streamlit run Streamlit_app.py`
 
 # To Train+Test model:
 
@@ -15,7 +15,7 @@ Download Fake.csv and True.csv from (authentication required) Kaggle:
 https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset
 
 then:
-python KERAS_ATT.py
+`python KERAS_ATT.py`
 
 
 
