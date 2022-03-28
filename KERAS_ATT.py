@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.datasets import imdb
-from tensorflow.keras.layers import Embedding, Dense, LSTM
+from tensorflow.keras.layers import Embedding, Dense, LSTM, Bidirectional
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
@@ -33,17 +33,17 @@ use_frame = use_frame.drop(['title', 'text'], axis=1)
 cols = use_frame.columns.tolist()
 cols = [cols[1] , cols[0]]
 use_frame = use_frame[cols]
-#print(use_frame.head)
+print(use_frame['label'].value_counts())
 ##################################################
 # # Model params
 additional_metrics = ['accuracy']
 batch_size = 32
-embedding_out_dim = 100
+embedding_out_dim = 64
 loss_function = BinaryCrossentropy()
-maxlen = 250
-num_d_words = 50000
-number_of_epochs = 5
-optimizer = Adam(learning_rate = 0.001)
+maxlen = 512
+num_d_words = 10000
+number_of_epochs = 2
+optimizer = Adam(learning_rate = 0.00001)
 validation_split = 0.20
 verbosity_mode = 1
 #################################################
@@ -64,8 +64,7 @@ X = pad_sequences(X, padding='post', maxlen=maxlen, truncating='post')
 y = labels.values
 
 # # train/test split
-x_train, x_test, y_train, y_test = train_test_split(
-    X, y, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, shuffle=True, stratify = y)
 
 # print(x_train.shape)
 # print(x_test.shape)
@@ -84,12 +83,8 @@ callbacks = myCallback()
 # # Define Keras model
 model = Sequential()
 model.add(Embedding(num_d_words, embedding_out_dim, input_length=X.shape[1]))
-model.add(SpatialDropout1D(0.2))
-model.add(LSTM(64, dropout=0.2, recurrent_dropout=0.2))
-model.add(Dense(256, activation='tanh'))
-model.add(Dropout(0.2))
-model.add(Dense(256, activation='tanh'))
-model.add(Dropout(0.2))
+model.add(Bidirectional(LSTM(embedding_out_dim, return_sequences=True)))
+model.add(Bidirectional(LSTM(16, dropout=0.2)))
 model.add(Dense(1, activation='sigmoid'))
 
 # Compile
