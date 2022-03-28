@@ -37,13 +37,13 @@ use_frame = use_frame[cols]
 ##################################################
 # # Model params
 additional_metrics = ['accuracy']
-batch_size = 64
+batch_size = 32
 embedding_out_dim = 100
 loss_function = BinaryCrossentropy()
 maxlen = 250
 num_d_words = 50000
 number_of_epochs = 5
-optimizer = Adam(learning_rate=0.001)
+optimizer = Adam(learning_rate = 0.001)
 validation_split = 0.20
 verbosity_mode = 1
 #################################################
@@ -86,11 +86,11 @@ model = Sequential()
 model.add(Embedding(num_d_words, embedding_out_dim, input_length=X.shape[1]))
 model.add(SpatialDropout1D(0.2))
 model.add(LSTM(64, dropout=0.2, recurrent_dropout=0.2))
-model.add(Dense(256, activation='sigmoid'))
+model.add(Dense(256, activation='tanh'))
 model.add(Dropout(0.2))
-model.add(Dense(256, activation='sigmoid'))
+model.add(Dense(256, activation='tanh'))
 model.add(Dropout(0.2))
-model.add(Dense(1, activation='tanh'))
+model.add(Dense(1, activation='sigmoid'))
 
 # Compile
 model.compile(optimizer=optimizer, loss=loss_function, metrics=additional_metrics)
