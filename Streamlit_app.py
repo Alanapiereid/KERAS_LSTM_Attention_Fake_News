@@ -36,7 +36,7 @@ class Predict_Bias:
         model = self.get_model()
         pred = model.predict(self.preprocess(text))
         if pred >= 0.5:
-            return str(f'This text is biased news with {pred[0][0]} certainty')
+            return str(f'This text is biased news with {pred[0][0]} certainty.')
         else:
             return str(f'This text is balanced news with {100 - pred[0][0]} certainty')
 
