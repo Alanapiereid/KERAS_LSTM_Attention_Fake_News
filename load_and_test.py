@@ -20,6 +20,7 @@ maxlen = 300
 
 
 saved_model = load_model('fake_n_model.h5')
+
 new_text = np.array(['Wow Trump has really gone off the deepend this time and very few people will be surprised by that'])
 new_text2 = np.array(['Speculation grows that Maxwell may try to cut a deal for reduced sentence'])
 new_text3 = np.array(['According to Lichtman, there are defendants who, in the eyes of the government, are so bad that it does not want to strike a deal in exchange for testimony.'])
